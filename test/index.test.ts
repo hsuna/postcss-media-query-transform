@@ -72,6 +72,19 @@ describe("mqTransform", () => {
     expect(processed).toBe(expected);
   });
 
+  it("should no work when keyframes no px", () => {
+    const options = {
+      propList: ["*"],
+    };
+    const rules =
+      "@keyframes rule { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }";
+    const expected =
+      "@keyframes rule { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }";
+    const processed = postcss(mqTransform(options)).process(rules).css;
+
+    expect(processed).toBe(expected);
+  });
+
   it("should not work when media", () => {
     const expected =
       "@media (min-width: 420px) {h1 { margin: 0 0 20px; font-size: 2rpx; line-height: 1.2; letter-spacing: 0.0625rem; } }";
