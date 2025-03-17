@@ -1,6 +1,6 @@
 {
   "name": "@hsuna/postcss-media-query-transform",
-  "version": "0.0.1",
+  "version": "1.0.0-beta",
   "description": "PostCSS plugin designed to automatically adjust pixel values within specified media queries. It scales the numeric values of designated units according to predefined ratios, ensuring consistent and responsive design across various devices and screen sizes.",
   "author": "hsuna<me@hsuna.com>",
   "license": "MIT",
