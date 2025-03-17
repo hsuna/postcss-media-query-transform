@@ -11,6 +11,7 @@ export interface UserDefinedOptions {
   selectorBlackList?: (string | RegExp)[];
   propList?: (string | RegExp)[];
   transformUnit?: "px" | "rpx" | "rem";
+  insert?: "before" | "after";
   exclude?: (string | RegExp)[] | ((filePath: string) => boolean);
   disabled?: boolean;
 }

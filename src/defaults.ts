@@ -6,6 +6,7 @@ export const defaultOptions: Required<UserDefinedOptions> = {
   selectorBlackList: [],
   propList: ["font", "font-size", "line-height", "letter-spacing"],
   transformUnit: "px",
+  insert: "before",
   exclude: [/node_modules/i],
   disabled: false,
 };

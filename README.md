@@ -115,6 +115,12 @@ Type: `'px' | 'rpx' | 'rem'`
 
 The transform output unit.
 
+## insert
+
+Type: `'before' | 'after'`
+
+The insert output postion，you can select insert input before or after.
+
 ## disabled
 
 Type: `boolean`

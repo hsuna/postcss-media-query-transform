@@ -16,13 +16,14 @@ const plugin: PostcssMediaQueryTransform = (
   options: UserDefinedOptions = {}
 ) => {
   const {
+    disabled,
+    exclude,
+    insert,
     mediaQuery,
-    unitPrecision,
-    transformUnit,
     propList,
     selectorBlackList,
-    exclude,
-    disabled,
+    transformUnit,
+    unitPrecision,
   } = getConfig(options);
   if (disabled || !mediaQuery) {
     return {
@@ -159,12 +160,14 @@ const plugin: PostcssMediaQueryTransform = (
         }
       });
 
-      mediaQueryRules.map(({ rule: mediaQueryRule }) => {
-        // 如果媒体查询中有内容，则将其添加到根节点中
-        if (mediaQueryRule.nodes?.length) {
-          css.append(mediaQueryRule);
-        }
-      });
+      const mediaQueryNodes = mediaQueryRules
+        .filter(({ rule }) => rule.nodes?.length)
+        .map(({ rule }) => rule);
+      if (insert === "before") {
+        css.prepend(...mediaQueryNodes); // 添加到根节点的最前面，避免覆盖其他规则，确保其他媒介查询优先于他
+      } else {
+        css.append(...mediaQueryNodes); // 添加到根节点的最前面，避免覆盖其他规则，确保其他媒介查询优先于他
+      }
     },
   };
 };

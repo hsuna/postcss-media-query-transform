@@ -12,6 +12,7 @@ describe("config", () => {
           { query: "(min-width: 400px)", scale: 0.5 },
           { query: "(max-width: 200px)", scale: 2 },
         ],
+        insert: "after",
         propList: ["*"],
       })
     ).toMatchSnapshot();
