@@ -1,0 +1,80 @@
+{
+  "name": "postcss-media-query-transform",
+  "version": "0.0.1",
+  "description": "PostCSS plugin designed to automatically adjust pixel values within specified media queries. It scales the numeric values of designated units according to predefined ratios, ensuring consistent and responsive design across various devices and screen sizes.",
+  "author": "hsuna<me@hsuna.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/hsuna/postcss-media-query-transform#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hsuna/postcss-media-query-transform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hsuna/postcss-media-query-transform/issues"
+  },
+  "keywords": [
+    "postcss",
+    "postcss-media-query-transform",
+    "postcss8",
+    "responsive",
+    "css",
+    "pixel",
+    "px",
+    "rpx",
+    "uni-app",
+    "uni",
+    "wechat",
+    "mp",
+    "miniprogram",
+    "小程序",
+    "微信",
+    "taro"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./*": "./*"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=16.6.0"
+  },
+  "scripts": {
+    "dev": "tsup --watch --sourcemap",
+    "build": "tsup",
+    "test": "vitest run",
+    "test:dev": "vitest",
+    "release": "pnpm publish",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.5",
+    "defu": "^6.1.4",
+    "eslint": "^9.11.0",
+    "postcss": "^8.4.47",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.2",
+    "vitest": "~2.0.5"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}
