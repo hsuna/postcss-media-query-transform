@@ -35,7 +35,7 @@ const plugin: PostcssMediaQueryTransform = (
 
   return {
     postcssPlugin,
-    Once(css) {
+    OnceExit(css) {
       const source = css.source;
       const input = source!.input;
       const filePath = input.file as string;
@@ -64,10 +64,52 @@ const plugin: PostcssMediaQueryTransform = (
         };
       });
 
+      css.walkAtRules((atRule) => {
+        if (atRule.name === "keyframes") {
+          mediaQueryRules.map(({ rule: mediaQueryRule, pxReplace }) => {
+            // 克隆规则
+            const clonedAtRule = atRule.clone();
+
+            let needAppend = false;
+
+            clonedAtRule.walkDecls((decl) => {
+              const rule = decl.parent as Rule;
+              if (
+                !decl.value.includes(transformUnit) ||
+                !satisfyPropList(decl.prop) ||
+                blacklistedSelector(selectorBlackList, rule.selector)
+              ) {
+                return;
+              }
+
+              const value = decl.value.replace(
+                createUnitRegex(transformUnit),
+                pxReplace
+              );
+
+              if (declarationExists(rule, decl.prop, value)) {
+                return;
+              }
+
+              // 如果调整后的值与原始值不同，则更新值
+              if (value !== decl.value) {
+                needAppend = true;
+                decl.value = value;
+              }
+            });
+
+            // 如果克隆规则中还有剩余的声明，则将其添加到媒体查询中
+            if (needAppend) {
+              mediaQueryRule.append(clonedAtRule);
+            }
+          });
+        }
+      });
+
       css.walkRules((rule) => {
         if (
           rule.parent?.type === "atrule" &&
-          (rule.parent as AtRule).name === "media"
+          ["media", "keyframes"].includes((rule.parent as AtRule).name)
         ) {
           // 如果规则是媒体查询中的规则，则跳过
           return;

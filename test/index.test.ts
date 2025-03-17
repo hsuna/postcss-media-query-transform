@@ -59,6 +59,19 @@ describe("mqTransform", () => {
     expect(processed).toBe(output);
   });
 
+  it("should work when keyframes", () => {
+    const options = {
+      propList: ["*"],
+    };
+    const rules =
+      "@keyframes rule { 0% { transform: translateX(0); } 25% { transform: translateX(-10px); } 50% { transform: translateX(10px); } 75% { transform: translateX(-10px); } 100% { transform: translateX(0); } }";
+    const expected =
+      "@keyframes rule { 0% { transform: translateX(0); } 25% { transform: translateX(-10px); } 50% { transform: translateX(10px); } 75% { transform: translateX(-10px); } 100% { transform: translateX(0); } } @media (min-width: 400px) {@keyframes rule { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } } }";
+    const processed = postcss(mqTransform(options)).process(rules).css;
+
+    expect(processed).toBe(expected);
+  });
+
   it("should not work when media", () => {
     const expected =
       "@media (min-width: 420px) {h1 { margin: 0 0 20px; font-size: 2rpx; line-height: 1.2; letter-spacing: 0.0625rem; } }";
