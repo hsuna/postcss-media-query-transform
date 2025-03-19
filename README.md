@@ -1,6 +1,6 @@
-# postcss-media-query-transform
+# @hsuna/postcss-media-query-transform
 
-A plugin for [PostCSS](https://github.com/ai/postcss) that generates px or rpx units from rem units.
+[PostCSS](https://github.com/ai/postcss) plugin designed to automatically adjust pixel values within specified media queries. It scales the numeric values of designated units according to predefined ratios, ensuring consistent and responsive design across various devices and screen sizes.
 
 - Rewrite with `typescript` and well tested.
 - TransformUnit Support `px` and `rpx` and `rem`!
@@ -10,9 +10,9 @@ A plugin for [PostCSS](https://github.com/ai/postcss) that generates px or rpx u
 ## Install
 
 ```shell
-npm i -D postcss-media-query-transform
-yarn add -D postcss-media-query-transform
-pnpm i -D postcss-media-query-transform
+npm i -D @hsuna/postcss-media-query-transform
+yarn add -D @hsuna/postcss-media-query-transform
+pnpm i -D @hsuna/postcss-media-query-transform
 ```
 
 ## Usage
@@ -29,6 +29,7 @@ module.exports = {
       mediaQuery: { query: "(min-width: 400px)", scale: 0.5 },
       propList: ["*"],
       transformUnit: "px",
+      insert: "after",
     }),
   ],
 };
@@ -74,6 +75,7 @@ const defaultOptions = {
   selectorBlackList: [],
   propList: ["font", "font-size", "line-height", "letter-spacing"],
   transformUnit: "px",
+  insert: "before",
   exclude: [/node_modules/i],
   disabled: false,
 };
